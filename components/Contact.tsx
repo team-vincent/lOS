@@ -14,8 +14,13 @@ import {
   Linkedin,
   Twitter
 } from 'lucide-react';
+import BookingButton from './BookingButton';
 
-const Contact = () => {
+interface ContactProps {
+  onBookingClick?: () => void;
+}
+
+const Contact: React.FC<ContactProps> = ({ onBookingClick }) => {
   const [isVisible, setIsVisible] = useState(false);
   const [formData, setFormData] = useState({
     name: '',
@@ -351,10 +356,13 @@ const Contact = () => {
                 <p className="text-gray-400 mb-6">
                   Préférez-vous discuter de vive voix ? Réservez un créneau de 30 minutes gratuit pour échanger sur votre projet.
                 </p>
-                <button className="btn-primary px-6 py-3 rounded-lg text-white font-medium flex items-center space-x-2">
-                  <Calendar className="w-5 h-5" />
-                  <span>Réserver un créneau</span>
-                </button>
+                <BookingButton
+                  onClick={onBookingClick || (() => {})}
+                  size="lg"
+                  icon={<Calendar className="w-5 h-5" />}
+                >
+                  Réserver un créneau
+                </BookingButton>
               </div>
             </div>
           </div>

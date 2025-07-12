@@ -13,8 +13,13 @@ import {
   CheckCircle,
   Target
 } from 'lucide-react';
+import BookingButton from './BookingButton';
 
-const Sectors = () => {
+interface SectorsProps {
+  onBookingClick?: () => void;
+}
+
+const Sectors: React.FC<SectorsProps> = ({ onBookingClick }) => {
   const [isVisible, setIsVisible] = useState(false);
 
   useEffect(() => {
@@ -221,10 +226,14 @@ const Sectors = () => {
               <p className="text-gray-400 mb-6">
                 Chaque projet est unique. Discutons de vos besoins spécifiques et voyons comment mes compétences peuvent s'adapter à votre domaine.
               </p>
-              <button className="btn-primary px-8 py-3 rounded-full text-white font-medium flex items-center space-x-2 mx-auto hover:shadow-lg transition-all">
-                <span>Parlons de votre projet</span>
-                <ArrowRight className="w-5 h-5" />
-              </button>
+              <div className="flex justify-center">
+                <BookingButton
+                  onClick={onBookingClick || (() => {})}
+                  size="lg"
+                >
+                  Parlons de votre projet
+                </BookingButton>
+              </div>
             </div>
           </div>
         </div>

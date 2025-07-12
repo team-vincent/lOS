@@ -2,8 +2,13 @@
 
 import { useEffect, useState } from 'react';
 import { ChevronDown, Download, Calendar, ArrowRight, Play, Sparkles } from 'lucide-react';
+import BookingButton from './BookingButton';
 
-const Hero = () => {
+interface HeroProps {
+  onBookingClick?: () => void;
+}
+
+const Hero: React.FC<HeroProps> = ({ onBookingClick }) => {
   const [isVisible, setIsVisible] = useState(false);
   const [typewriterText, setTypewriterText] = useState('');
   const [currentPhraseIndex, setCurrentPhraseIndex] = useState(0);
@@ -188,12 +193,13 @@ const Hero = () => {
 
           {/* Boutons d'action avec effets avancés */}
           <div className="flex flex-col sm:flex-row gap-6 justify-center items-center mb-16">
-            <button className="group relative btn-primary px-8 py-4 rounded-full text-white font-semibold flex items-center space-x-3 overflow-hidden">
-              <div className="absolute inset-0 bg-gradient-to-r from-[#00F5FF] to-[#9D4EDD] opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
-              <Calendar className="w-5 h-5 relative z-10 group-hover:rotate-12 transition-transform" />
-              <span className="relative z-10">Prendre RDV</span>
-              <div className="absolute inset-0 bg-white/20 transform -skew-x-12 -translate-x-full group-hover:translate-x-full transition-transform duration-700"></div>
-            </button>
+            <BookingButton
+              onClick={onBookingClick || (() => {})}
+              size="lg"
+              pulse={true}
+            >
+              Prendre RDV
+            </BookingButton>
             
             <button className="group px-8 py-4 rounded-full border-2 border-gray-600 text-gray-300 hover:border-[#00F5FF] hover:text-[#00F5FF] transition-all duration-300 flex items-center space-x-3 relative overflow-hidden">
               <div className="absolute inset-0 bg-[#00F5FF]/10 transform scale-x-0 group-hover:scale-x-100 transition-transform duration-300 origin-left"></div>

@@ -55,7 +55,7 @@ const Chatbot = () => {
     }
     
     if (lowerMessage.includes('rdv') || lowerMessage.includes('rendez-vous')) {
-      return "Parfait ! Je peux vous proposer un créneau cette semaine. Préférez-vous un appel ou une visio ? Quel jour vous conviendrait le mieux ?";
+      return "Parfait ! Cliquez sur 'Prendre RDV' pour accéder au système de réservation en ligne et choisir votre créneau.";
     }
     
     if (lowerMessage.includes('service') || lowerMessage.includes('développement')) {

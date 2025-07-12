@@ -20,8 +20,13 @@ import {
   Clock,
   Euro
 } from 'lucide-react';
+import BookingButton from './BookingButton';
 
-const Services = () => {
+interface ServicesProps {
+  onBookingClick?: () => void;
+}
+
+const Services: React.FC<ServicesProps> = ({ onBookingClick }) => {
   const [isVisible, setIsVisible] = useState(false);
 
   useEffect(() => {
@@ -352,10 +357,14 @@ const Services = () => {
                       </div>
                     </div>
                     
-                    <button className="w-full py-3 px-6 bg-gradient-to-r from-[#00F5FF]/20 to-[#9D4EDD]/20 border border-[#00F5FF]/30 rounded-xl text-[#00F5FF] hover:bg-gradient-to-r hover:from-[#00F5FF]/30 hover:to-[#9D4EDD]/30 hover:border-[#00F5FF]/50 transition-all duration-300 flex items-center justify-center space-x-2 group/btn">
-                      <span className="font-medium">Demander un devis</span>
-                      <ArrowRight className="w-4 h-4 group-hover/btn:translate-x-1 transition-transform" />
-                    </button>
+                    <BookingButton
+                      onClick={onBookingClick || (() => {})}
+                      variant="outline"
+                      size="md"
+                      className="w-full"
+                    >
+                      Demander un devis
+                    </BookingButton>
                   </div>
                 </div>
 
@@ -433,11 +442,12 @@ const Services = () => {
                 </p>
                 
                 <div className="flex flex-col sm:flex-row gap-4 justify-center">
-                  <button className="btn-primary px-8 py-4 rounded-full text-white font-semibold flex items-center space-x-3 group/btn relative overflow-hidden">
-                    <span className="relative z-10">Demander un devis</span>
-                    <ArrowRight className="w-5 h-5 relative z-10 group-hover/btn:translate-x-1 transition-transform" />
-                    <div className="absolute inset-0 bg-white/20 transform -skew-x-12 -translate-x-full group-hover/btn:translate-x-full transition-transform duration-700"></div>
-                  </button>
+                  <BookingButton
+                    onClick={onBookingClick || (() => {})}
+                    size="xl"
+                  >
+                    Demander un devis
+                  </BookingButton>
                   
                   <button className="px-8 py-4 rounded-full border-2 border-[#9D4EDD] text-[#9D4EDD] hover:bg-[#9D4EDD] hover:text-white transition-all duration-300 flex items-center space-x-3">
                     <Play className="w-5 h-5" />

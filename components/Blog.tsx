@@ -8,12 +8,17 @@ import {
   ArrowRight,
   Loader2
 } from 'lucide-react';
+import BookingButton from './BookingButton';
 import BlogCard from './blog/BlogCard';
 import BlogModal from './blog/BlogModal';
 import BlogSearch from './blog/BlogSearch';
 import BlogPagination from './blog/BlogPagination';
 
-const Blog = () => {
+interface BlogProps {
+  onBookingClick?: () => void;
+}
+
+const Blog: React.FC<BlogProps> = ({ onBookingClick }) => {
   const [isVisible, setIsVisible] = useState(false);
   const [selectedPost, setSelectedPost] = useState<any>(null);
   const [isModalOpen, setIsModalOpen] = useState(false);
@@ -450,10 +455,13 @@ const Blog = () => {
                   placeholder="Votre adresse email"
                   className="flex-1 px-4 py-3 bg-gray-800/50 border border-gray-600 rounded-lg focus:border-[#00F5FF] focus:outline-none text-white placeholder-gray-400"
                 />
-                <button className="btn-primary px-6 py-3 rounded-lg text-white font-medium flex items-center space-x-2 justify-center hover:shadow-lg transition-all">
-                  <span>S'abonner</span>
-                  <ArrowRight className="w-4 h-4" />
-                </button>
+                <BookingButton
+                  onClick={onBookingClick || (() => {})}
+                  size="md"
+                  className="px-6 py-3"
+                >
+                  S'abonner
+                </BookingButton>
               </div>
               <p className="text-xs text-gray-500 mt-4">
                 Déjà <span className="text-[#00F5FF] font-semibold">2,300+</span> développeurs nous font confiance

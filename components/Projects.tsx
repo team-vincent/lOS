@@ -14,9 +14,14 @@ import {
   FileText,
   Eye
 } from 'lucide-react';
+import BookingButton from './BookingButton';
 import ProjectModal from './projects/ProjectModal';
 
-const Projects = () => {
+interface ProjectsProps {
+  onBookingClick?: () => void;
+}
+
+const Projects: React.FC<ProjectsProps> = ({ onBookingClick }) => {
   const [isVisible, setIsVisible] = useState(false);
   const [selectedProject, setSelectedProject] = useState<any>(null);
   const [isModalOpen, setIsModalOpen] = useState(false);
@@ -375,10 +380,13 @@ const Projects = () => {
                   <Github className="w-5 h-5" />
                   <span>Voir GitHub</span>
                 </button>
-                <button className="px-6 py-3 rounded-full border border-[#00F5FF] text-[#00F5FF] hover:bg-[#00F5FF] hover:text-white transition-all flex items-center space-x-2">
-                  <span>Démarrer un projet</span>
-                  <ArrowRight className="w-5 h-5" />
-                </button>
+                <BookingButton
+                  onClick={onBookingClick || (() => {})}
+                  variant="outline"
+                  size="lg"
+                >
+                  Démarrer un projet
+                </BookingButton>
               </div>
             </div>
           </div>
