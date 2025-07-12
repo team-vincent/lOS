@@ -2,8 +2,13 @@
 
 import { useState, useEffect } from 'react';
 import { Menu, X, Code, Github, Linkedin, Mail, ChevronDown } from 'lucide-react';
+import BookingButton from './BookingButton';
 
-const Navigation = () => {
+interface NavigationProps {
+  onBookingClick?: () => void;
+}
+
+const Navigation: React.FC<NavigationProps> = ({ onBookingClick }) => {
   const [isOpen, setIsOpen] = useState(false);
   const [activeSection, setActiveSection] = useState('hero');
   const [isScrolled, setIsScrolled] = useState(false);
@@ -185,13 +190,13 @@ const Navigation = () => {
               </div>
 
               {/* Bouton CTA */}
-              <button 
-                onClick={() => scrollToSection('contact')}
-                className="relative px-6 py-2 bg-gradient-to-r from-[#00F5FF] to-[#9D4EDD] rounded-full text-white font-medium text-sm overflow-hidden group hover:shadow-lg hover:shadow-[#00F5FF]/25 transition-all duration-300"
+              <BookingButton
+                onClick={onBookingClick || (() => scrollToSection('contact'))}
+                size="sm"
+                className="text-sm"
               >
-                <span className="relative z-10">Contact</span>
-                <div className="absolute inset-0 bg-white/20 transform -skew-x-12 -translate-x-full group-hover:translate-x-full transition-transform duration-700" />
-              </button>
+                Prendre RDV
+              </BookingButton>
             </div>
 
             {/* Menu Mobile Button */}
@@ -263,13 +268,16 @@ const Navigation = () => {
               </div>
 
               {/* CTA Mobile */}
-              <button 
-                onClick={() => scrollToSection('contact')}
-                className="w-full mt-4 py-3 bg-gradient-to-r from-[#00F5FF] to-[#9D4EDD] rounded-xl text-white font-medium overflow-hidden group relative"
+              <BookingButton
+                onClick={() => {
+                  setIsOpen(false);
+                  onBookingClick?.();
+                }}
+                size="md"
+                className="w-full mt-4"
               >
-                <span className="relative z-10">Prendre contact</span>
-                <div className="absolute inset-0 bg-white/20 transform -skew-x-12 -translate-x-full group-hover:translate-x-full transition-transform duration-700" />
-              </button>
+                Prendre RDV
+              </BookingButton>
             </div>
           </div>
         </div>

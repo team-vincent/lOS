@@ -1,6 +1,8 @@
 'use client';
 
 import { useState, useEffect } from 'react';
+import BookingModal from '@/components/BookingModal';
+import { useBookingModal } from '@/hooks/useBookingModal';
 import Navigation from '@/components/Navigation';
 import Hero from '@/components/Hero';
 import About from '@/components/About';
@@ -17,6 +19,7 @@ import EcoBadge from '@/components/EcoBadge';
 
 export default function Home() {
   const [isLoaded, setIsLoaded] = useState(false);
+  const { isOpen, modalOptions, openBookingModal, closeBookingModal } = useBookingModal();
 
   useEffect(() => {
     setIsLoaded(true);
@@ -27,21 +30,29 @@ export default function Home() {
       <ScrollIndicator />
       <BackgroundAnimation />
       
-      <Navigation />
+      <Navigation onBookingClick={openBookingModal} />
       
       <main className={`transition-opacity duration-1000 ${isLoaded ? 'opacity-100' : 'opacity-0'}`}>
-        <Hero />
-        <About />
-        <Services />
-        <Sectors />
-        <Projects />
-        <Blog />
-        <Contact />
+        <Hero onBookingClick={openBookingModal} />
+        <About onBookingClick={openBookingModal} />
+        <Services onBookingClick={openBookingModal} />
+        <Sectors onBookingClick={openBookingModal} />
+        <Projects onBookingClick={openBookingModal} />
+        <Blog onBookingClick={openBookingModal} />
+        <Contact onBookingClick={openBookingModal} />
       </main>
       
       <Footer />
       <Chatbot />
       <EcoBadge />
+      
+      {/* Booking Modal */}
+      <BookingModal
+        isOpen={isOpen}
+        onClose={closeBookingModal}
+        initialStep={modalOptions.initialStep}
+        preSelectedService={modalOptions.preSelectedService}
+      />
     </div>
   );
 }
