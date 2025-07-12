@@ -21,7 +21,13 @@ class PaymentService {
   private baseUrl = process.env.NEXT_PUBLIC_API_URL || '/api';
 
   constructor() {
-    this.stripe = loadStripe(process.env.NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY!);
+    const stripeKey = process.env.NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY;
+    if (!stripeKey) {
+      console.warn('NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY is not defined. Stripe functionality will be disabled.');
+      this.stripe = Promise.resolve(null);
+    } else {
+      this.stripe = loadStripe(stripeKey);
+    }
   }
 
   async createPaymentIntent(
@@ -58,7 +64,9 @@ class PaymentService {
   ): Promise<{ success: boolean; error?: string }> {
     try {
       const stripe = await this.stripe;
-      if (!stripe) throw new Error('Stripe not loaded');
+      if (!stripe) {
+        return { success: false, error: 'Stripe is not available. Please check configuration.' };
+      }
 
       const { error, paymentIntent } = await stripe.confirmCardPayment(clientSecret, {
         payment_method: paymentMethod,
@@ -110,6 +118,10 @@ class PaymentService {
 
   async getStripeInstance(): Promise<Stripe | null> {
     return await this.stripe;
+  }
+
+  isStripeAvailable(): boolean {
+    return !!process.env.NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY;
   }
 }
 

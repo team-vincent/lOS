@@ -52,8 +52,13 @@ const PaymentFormContent: React.FC<PaymentFormProps> = ({
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     
+    if (!paymentService.isStripeAvailable()) {
+      setPaymentError('Le système de paiement n\'est pas disponible. Veuillez contacter le support.');
+      return;
+    }
+
     if (!stripe || !elements) {
-      setPaymentError('Stripe n\'est pas encore chargé');
+      setPaymentError('Le système de paiement n\'est pas encore chargé. Veuillez patienter.');
       return;
     }
 
